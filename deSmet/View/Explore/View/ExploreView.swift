@@ -45,7 +45,7 @@ struct ExploreView: View {
     //header
     @ViewBuilder
     func headerView(_ safeAreaTop:CGFloat)->some View{
-        let progress = -(offsetY / 80) > 1 ? -1 : (offsetY < 0 ? 0 : (offsetY / 80))
+        let progress = -(offsetY / 80) > 1 ? -1 : (offsetY > 0 ? 0 : (offsetY / 80))
         VStack{
             HStack(spacing:15){
                 HStack(spacing:8){
@@ -62,6 +62,7 @@ struct ExploreView: View {
                         .opacity(0.15)
                     
                 }
+                .opacity(1+progress)
                 
             }.padding(.bottom, 15)
             HStack(spacing: 15){
@@ -79,18 +80,36 @@ struct ExploreView: View {
                 }
                 
             }
+            
+            //moving up navbar
+            .padding(.leading, -progress * 58)
+            .offset(y: progress * 65)
         }
+        //search button
+        .overlay(alignment: .topLeading, content: {
+            Button{
+                
+            }label: {
+                Image(systemName: "magnifyingglass")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+            }.offset(x: 13, y: 10)
+        })
         .environment(\.colorScheme, .dark)
         .padding(.top, safeAreaTop * 1.3)
         .padding([.horizontal, .bottom], 15)
         .background{
             Rectangle().fill(themeColor.gradient)
+                .padding(.bottom, -progress * 85)
         }
 
     }
     // buttons
     @ViewBuilder
     func CustomButton(symbolImage: String, title: String, onclick: @escaping()->())->some View{
+        let progress = -(offsetY / 40) > 1 ? -1 : (offsetY > 0 ? 0 : (offsetY / 40))
+
         Button{
             
         }label:{
@@ -110,7 +129,18 @@ struct ExploreView: View {
                     .foregroundColor(.white)
                 
             }
-        }.padding(.horizontal, 12)
+            .opacity(1 + progress)
+            //alternative icons
+            .overlay{
+                Image(systemName: symbolImage)
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+                    .opacity(-progress)
+                    .offset(y: -9)
+            }
+        }.padding(.horizontal, 10)
+            
     }
     
 }
