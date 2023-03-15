@@ -10,7 +10,10 @@ import SwiftUI
 struct ExploreView: View {
     // header animation
     @State var offsetY: CGFloat = 0
+    @State var showSearchBar: Bool = false
+    
     let themeColor = Color("LaunchScreenBackground")
+//    let themeColor = Color.red
     var body: some View {
         GeometryReader{proxy in
             let safeAreaTop = proxy.safeAreaInsets.top
@@ -33,6 +36,9 @@ struct ExploreView: View {
                 }
                 .offset(coordinateSpace: .named("SCROLL")){offset in
                     offsetY = offset
+                    if offsetY == 0{
+                        showSearchBar = false
+                    }
                     
                     
                 }
@@ -53,6 +59,26 @@ struct ExploreView: View {
                         .foregroundColor(.white)
                     TextField("Search", text: .constant(""))
                         .tint(.white)
+                    Button{
+                        
+                    }label: {
+                        Image("mic")
+                           
+                    }
+                    .padding(.horizontal, 10)
+                    .overlay{
+                        if showSearchBar{
+                            Button{
+                                showSearchBar = false
+                            }label:{
+                                Image(systemName: "xmark")
+                                    .font(.title3)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.white)
+                            }
+                            
+                        }
+                    }
                 }
                 .padding(.vertical, 10)
                 .padding(.horizontal, 15)
@@ -62,9 +88,13 @@ struct ExploreView: View {
                         .opacity(0.15)
                     
                 }
-                .opacity(1+progress)
+                .opacity(showSearchBar ? 1 : 1 + progress)
                 
-            }.padding(.bottom, 15)
+                
+                
+            }
+            
+            .padding(.bottom, 15)
             HStack(spacing: 15){
                 CustomButton(symbolImage: "mic", title: "Listening"){
                     
@@ -84,18 +114,22 @@ struct ExploreView: View {
             //moving up navbar
             .padding(.leading, -progress * 58)
             .offset(y: progress * 65)
+            .opacity(showSearchBar ? 0 : 1)
         }
         //search button
         .overlay(alignment: .topLeading, content: {
             Button{
-                
+                showSearchBar = true
             }label: {
                 Image(systemName: "magnifyingglass")
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundColor(.white)
             }.offset(x: 13, y: 10)
+                .opacity(showSearchBar ? 0 : -progress)
+        
         })
+        .animation(.easeInOut(duration: 0.2), value: showSearchBar)
         .environment(\.colorScheme, .dark)
         .padding(.top, safeAreaTop * 1.3)
         .padding([.horizontal, .bottom], 15)
@@ -103,13 +137,14 @@ struct ExploreView: View {
             Rectangle().fill(themeColor.gradient)
                 .padding(.bottom, -progress * 85)
         }
+        
 
     }
+   
     // buttons
     @ViewBuilder
     func CustomButton(symbolImage: String, title: String, onclick: @escaping()->())->some View{
         let progress = -(offsetY / 40) > 1 ? -1 : (offsetY > 0 ? 0 : (offsetY / 40))
-
         Button{
             
         }label:{
