@@ -33,7 +33,6 @@
         <li><a href="#built-with">Built With</a></li>
       </ul>
     </li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -64,19 +63,6 @@ We are constantly making adjustments, integrating new technologies and listening
 * ![Xcode](https://img.shields.io/badge/Xcode-007ACC?style=for-the-badge&logo=Xcode&logoColor=white)
 
 
-<!-- ROADMAP -->
-## Roadmap
-
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
-
-See the [open issues](https://github.com/deSmet-Inc/deSmetSocialNetwork/issues) for a full list of proposed features (and known issues).
-
 <!-- LICENSE -->
 ## License
 
@@ -88,8 +74,4 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 Jacob Shushanyan - Jacobshushanyan@icloud.com
 
 Project Link: [https://github.com/deSmet-Inc/deSmetSocialNetwork](https://github.com/deSmet-Inc/deSmetSocialNetwork)
-
-
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
 
