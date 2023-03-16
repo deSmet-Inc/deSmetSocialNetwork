@@ -7,6 +7,7 @@
 
 import Foundation
 import Firebase
+
 class AuthModel: ObservableObject{
     @Published var userSession: FirebaseAuth.User?
     @Published var didAuthenticateUser = false
