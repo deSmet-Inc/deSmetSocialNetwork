@@ -7,13 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18AD959329C3604B005C2483 /* ProfileComp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD959229C3604B005C2483 /* ProfileComp.swift */; };
+		18AD959529C36096005C2483 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AD959429C36096005C2483 /* ProfileView.swift */; };
 		3208DD1629C22C8C00C8F66B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3208DD1529C22C8B00C8F66B /* GoogleService-Info.plist */; };
 		982069EF29C2EAAF0016C42F /* MessangerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982069EE29C2EAAF0016C42F /* MessangerView.swift */; };
 		E50A649528E06EB000931A83 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50A649428E06EB000931A83 /* TabBarView.swift */; };
 		E50A649728E06F4900931A83 /* HomeScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50A649628E06F4900931A83 /* HomeScreenView.swift */; };
 		E50A649928E07AAD00931A83 /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50A649828E07AAD00931A83 /* Tab.swift */; };
 		E50A649B28E07B4600931A83 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50A649A28E07B4600931A83 /* Styles.swift */; };
-		E518672328E4962000F8DB52 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518672228E4962000F8DB52 /* ProfileView.swift */; };
 		E518672928E497C300F8DB52 /* ExploreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518672828E497C300F8DB52 /* ExploreView.swift */; };
 		E518672B28E49EF800F8DB52 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E518672A28E49EF800F8DB52 /* MainTabView.swift */; };
 		E52CDF91290C3783003E43EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E52CDF90290C3783003E43EB /* Assets.xcassets */; };
@@ -73,13 +74,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18AD959229C3604B005C2483 /* ProfileComp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileComp.swift; sourceTree = "<group>"; };
+		18AD959429C36096005C2483 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		3208DD1529C22C8B00C8F66B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		982069EE29C2EAAF0016C42F /* MessangerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessangerView.swift; sourceTree = "<group>"; };
 		E50A649428E06EB000931A83 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
 		E50A649628E06F4900931A83 /* HomeScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenView.swift; sourceTree = "<group>"; };
 		E50A649828E07AAD00931A83 /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
 		E50A649A28E07B4600931A83 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
-		E518672228E4962000F8DB52 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		E518672828E497C300F8DB52 /* ExploreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreView.swift; sourceTree = "<group>"; };
 		E518672A28E49EF800F8DB52 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		E52CDF90290C3783003E43EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -169,9 +171,10 @@
 		E554A44528F2AF3D009EFE0B /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				E518672228E4962000F8DB52 /* ProfileView.swift */,
+				18AD959229C3604B005C2483 /* ProfileComp.swift */,
 				E554A44828F2CED5009EFE0B /* SideBarButton.swift */,
 				E5C5B0292906F5CC0056DC99 /* UserProfileView.swift */,
+				18AD959429C36096005C2483 /* ProfileView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -445,6 +448,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18AD959329C3604B005C2483 /* ProfileComp.swift in Sources */,
 				E554A44928F2CED5009EFE0B /* SideBarButton.swift in Sources */,
 				E5C5B0242905A7980056DC99 /* SideMenuViewModel.swift in Sources */,
 				E59CA3AA28E226720062870B /* VideoComment.swift in Sources */,
@@ -456,6 +460,7 @@
 				E599E07728DA24D200C0B978 /* LaunchScreenManager.swift in Sources */,
 				E50A649B28E07B4600931A83 /* Styles.swift in Sources */,
 				E50A649728E06F4900931A83 /* HomeScreenView.swift in Sources */,
+				18AD959529C36096005C2483 /* ProfileView.swift in Sources */,
 				E5FBF0DF28FDB7DF0037F588 /* ProfilePhotoSelectorView.swift in Sources */,
 				E518672928E497C300F8DB52 /* ExploreView.swift in Sources */,
 				E5C5B01B2902DD660056DC99 /* ImagePicker.swift in Sources */,
@@ -465,7 +470,6 @@
 				E52CDF93290EBC3E003E43EB /* ContentView.swift in Sources */,
 				E5C5B0272905AAE60056DC99 /* UserStatsView.swift in Sources */,
 				E5791C5F28D9D8EC00F417A1 /* LaunchScreenView.swift in Sources */,
-				E518672328E4962000F8DB52 /* ProfileView.swift in Sources */,
 				E50A649928E07AAD00931A83 /* Tab.swift in Sources */,
 				E58BF7E028EB3317000A4D36 /* RoundedShape.swift in Sources */,
 				E554A44B28F2D469009EFE0B /* CustomCorners.swift in Sources */,

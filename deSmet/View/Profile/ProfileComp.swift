@@ -8,50 +8,52 @@
 import SwiftUI
 
 struct ProfileComp: View {
-    
+    @Environment(\.colorScheme) var colorScheme
     var safeArea: EdgeInsets
     var size: CGSize
     var body: some View {
         ScrollView(.vertical,showsIndicators: false) {
-            ProfilePic()
-            
-            GeometryReader{proxy in
-                let minY = proxy.frame(in: .named("SCROLL")).minY - safeArea.top
-
-                Button {
-                    
-                } label: {
-                    Text("Follow")
-                        .font(.callout)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding(.horizontal,45)
-                        .padding(.vertical, 12)
-                        .background {
-                            Capsule()
-                                .fill(Color("LaunchScreenBackground").gradient)
-                        }
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .offset(y: minY < 50 ? -(minY - 50) : 0)
-            }
-            .frame(height: 50)
-            .padding(.top, -34)
-//            zIndex(1)
-            
             VStack{
-                // Profile Bio
-                Text("Future star")
-                    .fontWeight(.heavy)
+                ProfilePic()
                 
-                // content
-                ProfileContent()
+                GeometryReader{proxy in
+                    let minY = proxy.frame(in: .named("SCROLL")).minY - safeArea.top
+
+                    Button {
+                        
+                    } label: {
+                        Text("Follow")
+                            .font(.callout)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .padding(.horizontal,48)
+                            .padding(.vertical, 12)
+                            .background {
+                                Capsule()
+                                    .fill(Color("LaunchScreenBackground").gradient)
+                            }
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .offset(y: minY < 50 ? -(minY - 50) : 0)
+                }
+                .frame(height: 50)
+                .padding(.top, -34)
+                .zIndex(1)
+                
+                VStack{
+                    // Profile Bio
+                    Text("Future star")
+                        .fontWeight(.heavy)
+                    
+                    // content
+                    ProfileContent()
+                }
+                .padding(8)
+                .zIndex(0)
             }
-            .padding(8)
-//            .zIndex(0)
-        }
-        .overlay(alignment: .top) {
-            HeaderView()
+            .overlay(alignment: .top) {
+                HeaderView()
+            }
         }
         .coordinateSpace(name: "SCROLL")
     }
@@ -73,6 +75,7 @@ struct ProfileComp: View {
                     ZStack(alignment: .bottom){
                         Rectangle()
                             .fill(
+                                colorScheme == .dark ?
                                 .linearGradient(colors: [
                                     .black.opacity(0 - progress),
                                     .black.opacity(0.1 - progress),
@@ -80,7 +83,15 @@ struct ProfileComp: View {
                                     .black.opacity(0.5 - progress),
                                     .black.opacity(0.8 - progress),
                                     .black.opacity(1)
-                                ], startPoint: .top, endPoint: .bottom)
+                                ], startPoint: .top, endPoint: .bottom) :
+                                        .linearGradient(colors: [
+                                            .white.opacity(0 - progress),
+                                            .white.opacity(0.1 - progress),
+                                            .white.opacity(0.3 - progress),
+                                            .white.opacity(0.5 - progress),
+                                            .white.opacity(0.8 - progress),
+                                            .white.opacity(1)
+                                        ], startPoint: .top, endPoint: .bottom)
                             )
                         VStack(spacing: 0){
                             Text("Дaрья\nШихaнова")
@@ -131,7 +142,7 @@ struct ProfileComp: View {
                 } label: {
                     Image(systemName: "chevron.left")
                         .font(.title3)
-                        .foregroundColor(.white)
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
                 }
                 
                 Spacer(minLength: 0)
@@ -141,20 +152,24 @@ struct ProfileComp: View {
                 } label: {
                     Image(systemName: "ellipsis")
                         .font(.title3)
-                        .foregroundColor(.white)
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
                 }
             }
             .overlay(content: {
                 Text("Дaрья Шихaнова")
+                    .foregroundColor(colorScheme == .dark ? .white : .black)
                     .fontWeight(.semibold)
-                    .offset(y: -titleProgress > 0.75 ? 0 : 45)
+                    .offset(y: -titleProgress > 0.7 ? 0 : 45)
                     .clipped()
-                    .animation(.easeInOut(duration: 0.25), value: -titleProgress > 0.75)
+                    .animation(.easeInOut(duration: 0.25), value: -titleProgress > 0.7)
             })
             .padding(.top, safeArea.top + 10)
             .padding([.horizontal, .bottom], 15)
             .background(content: {
+                colorScheme == .dark ?
                 Color.black
+                    .opacity(-progress > 1 ? 1 : 0) :
+                Color.white
                     .opacity(-progress > 1 ? 1 : 0)
             })
             .offset(y: -minY)
