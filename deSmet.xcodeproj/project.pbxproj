@@ -188,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				E52CDF92290EBC3E003E43EB /* ContentView.swift */,
+				E5C5B0262905AAE60056DC99 /* UserStatsView.swift */,
 				E50A649428E06EB000931A83 /* TabBarView.swift */,
 				E518672A28E49EF800F8DB52 /* MainTabView.swift */,
 				E5791C5E28D9D8EC00F417A1 /* LaunchScreenView.swift */,
@@ -204,11 +205,11 @@
 		E59CA3A628E225330062870B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E59CA3AB28E226C80062870B /* InfinitySpace */,
 				E55AAB6828EF192C00494A7C /* AuthModel.swift */,
 				E50A649A28E07B4600931A83 /* Styles.swift */,
 				E50A649828E07AAD00931A83 /* Tab.swift */,
 				E599E07628DA24D200C0B978 /* LaunchScreenManager.swift */,
-				E59CA3AB28E226C80062870B /* InfinitySpace */,
 				E58BF7DF28EB3317000A4D36 /* RoundedShape.swift */,
 				E58BF7E128EB3A3B000A4D36 /* CustomInputField.swift */,
 				E554A44A28F2D469009EFE0B /* CustomCorners.swift */,
@@ -248,7 +249,6 @@
 			children = (
 				E52CDF90290C3783003E43EB /* Assets.xcassets */,
 				E5C4A55128D8A9C600EFEF36 /* deSmetApp.swift */,
-				E5C5B0252905AAD40056DC99 /* Core */,
 				E5C5B0192902DD500056DC99 /* Utils */,
 				E59CA3A628E225330062870B /* Model */,
 				982069ED29C2E8FE0016C42F /* ViewModel */,
@@ -274,22 +274,6 @@
 				E554A44628F2AF51009EFE0B /* SideBarView.swift */,
 			);
 			path = SideMenu;
-			sourceTree = "<group>";
-		};
-		E5C5B0252905AAD40056DC99 /* Core */ = {
-			isa = PBXGroup;
-			children = (
-				E5C5B0282905AAEA0056DC99 /* Users */,
-			);
-			path = Core;
-			sourceTree = "<group>";
-		};
-		E5C5B0282905AAEA0056DC99 /* Users */ = {
-			isa = PBXGroup;
-			children = (
-				E5C5B0262905AAE60056DC99 /* UserStatsView.swift */,
-			);
-			path = Users;
 			sourceTree = "<group>";
 		};
 		E5FBF0D028FBF1EF0037F588 /* Messanger */ = {
