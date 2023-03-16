@@ -12,24 +12,23 @@ struct ProfilePhotoSelectorView: View {
     @State private var selectedImage: UIImage?
     @State private var profileImage: Image?
     @EnvironmentObject var viewModel: AuthModel
+  
+    @State private var profileName: String = ""
+    @State private var profileSecondName: String = ""
     
     var body: some View {
         VStack {
             VStack {
                 HStack { Spacer() }
-//
-//                Text("Be visable for all")
-//                    .font(.largeTitle)
-//                    .bold()
-//                    .animation(Animation.easeIn(duration: 0.5))
                 Text("Setup Account")
                     .font(.largeTitle)
                     .bold()
                     .padding(8)
-                Text("Select a profile photo")
+                Text("Enter information about you")
                     .font(.title)
                     .bold()
                     .opacity(0.8)
+                    .multilineTextAlignment(.center)
             }
             .frame(height: 260)
             .padding()
@@ -64,6 +63,18 @@ struct ProfilePhotoSelectorView: View {
             }
             .padding(.top, 44)
             
+          Text("Profile picture")
+          
+          VStack(alignment: .leading, spacing: 10) {
+            Text("Your name:")
+              .padding(.leading, 20)
+            CustomInputField(imageName: "", placeholderText: "e.g. John", text: $profileName)
+            Text("Your second name:")
+              .padding(.leading, 20)
+            CustomInputField(imageName: "", placeholderText: "e.g. Appleseed", text: $profileSecondName)
+          }
+          
+          
             if let selectedImage = selectedImage {
                 Button {
                     viewModel.uploadProfileImage(selectedImage)
@@ -95,6 +106,6 @@ struct ProfilePhotoSelectorView: View {
 
 struct ProfilePhotoSelectorView_Previews: PreviewProvider {
     static var previews: some View {
-        ProfilePhotoSelectorView()
+      ProfilePhotoSelectorView()
     }
 }
