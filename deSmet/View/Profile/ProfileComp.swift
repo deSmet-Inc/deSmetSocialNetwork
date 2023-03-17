@@ -18,7 +18,7 @@ struct ProfileComp: View {
                 
                 GeometryReader{proxy in
                     let minY = proxy.frame(in: .named("SCROLL")).minY - safeArea.top
-
+                    
                     Button {
                         
                     } label: {
