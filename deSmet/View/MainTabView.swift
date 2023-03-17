@@ -25,7 +25,7 @@ struct MainTabView: View {
                 case .explore:
                     ExploreView()
                 case .AR:
-                    SideBarView()
+                    ExploreView()
                 case .Messenger:
                     MessangerView()
                 case .Profile:
@@ -93,10 +93,10 @@ struct HeadView_Previews: PreviewProvider {
 
 
 struct LogOut: View {
-    @EnvironmentObject var viewModel: AuthModel
+//    @EnvironmentObject var viewModel: AuthModel
     var body: some View{
         Button {
-            viewModel.signOut()
+//            viewModel.signOut()
         } label: {
             
         }

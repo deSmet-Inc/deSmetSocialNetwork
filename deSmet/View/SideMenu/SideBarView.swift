@@ -1,52 +1,19 @@
 import SwiftUI
 
 
-struct SideBarView: View {
-    var body: some View {
-        
-        VStack(alignment: .trailing, spacing: 32) {
-            VStack(alignment: .trailing) {
-                Circle()
-                    .frame(width: 64, height: 64)
-             
-                VStack(alignment: .trailing, spacing: 4) {
-                    Text("Jacob")
-                        .font(.headline)
-                    
-                    Text("@Jacobsiks")
-                        .font(.caption)
-                        .foregroundColor(.secondary)
-                }
-                
-                UserStatsView()
-                    .padding(.vertical, 4)
-            }
-            .padding(.trailing)
-            
-            ForEach(SideMenuViewModel.allCases, id: \.rawValue) { option in
-                HStack(spacing: 16){
-                    Spacer()
-                    
-                    Text(option.title)
-                        .font(.subheadline)
-                    
-                    Image(systemName: option.imageName)
-                        .font(.headline)
-                }
-                .frame(height: 48)
-                .padding(.trailing)
-            }
-            Spacer()
-        }
-    }
-}
-
-struct SideBarView_Previews: PreviewProvider {
-    static var previews: some View {
-        SideBarView()
-    }
-}
-
+//struct SideBarView: View {
+//    @State private var image = UIImage
+//    var body: some View {
+//        
+//    }
+//}
+//
+//struct SideBarView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SideBarView()
+//    }
+//}
+//
 
 
 

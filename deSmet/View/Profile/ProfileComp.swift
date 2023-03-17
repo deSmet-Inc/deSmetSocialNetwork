@@ -66,7 +66,7 @@ struct ProfileComp: View {
             let size = proxy.size
             let minY = proxy.frame(in: .named("SCROLL")).minY
             let progress = minY / (height * (minY > 0 ? 0.5 : 0.8))
-            Image("profile")
+            Image("Profile")
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .frame(width: size.width, height: size.height + (minY > 0 ? minY: 0))

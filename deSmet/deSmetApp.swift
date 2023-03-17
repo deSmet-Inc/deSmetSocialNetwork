@@ -13,7 +13,7 @@ import FirebaseAuth
 struct deSmetApp: App {
     
     @StateObject var launchScreenManager = LaunchScreenManager()
-    @StateObject var viewModel = AuthModel()
+//    @StateObject var viewModel = AuthModel()
     init() {
         FirebaseApp.configure()
     }
@@ -22,7 +22,7 @@ struct deSmetApp: App {
         WindowGroup {
             ZStack {
                     LoginView()
-                        .environmentObject(viewModel)
+//                        .environmentObject(viewModel)
 //
 //                if  launchScreenManager.state != .completed {
 //                    LaunchScreenView()

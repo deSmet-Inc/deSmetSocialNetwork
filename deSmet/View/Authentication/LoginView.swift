@@ -8,39 +8,105 @@
 import SwiftUI
 
 struct LoginView: View {
-    @EnvironmentObject var viewModel: AuthModel
+//    @EnvironmentObject var viewModel: AuthModel
 
     @State private var isAuth = true
     @State private var isHomeScreenView = false
-    
-    @State private var Email = ""
-    @State private var Password = ""
-    @State private var RepeatPassword = ""
+    @State private var email: String = ""
+    @State private var password: String = ""
+    @State private var repeatPassword: String = ""
+    @State private var username: String = ""
+    @State private var imageData: Data = Data()
+    @State private var showActionSheet = false
+    @State private var selectedImage: Image?
+    @State private var profileImage: Image?
+    @State private var showPhotoPicker = false
+    @State private var sourceType: UIImagePickerController.SourceType = .photoLibrary
+    @State private var error: String = ""
     @State private var isShowAlert = false
-    @State private var alertMessage = ""
+    @State private var alertMessage = "Oh No 😮‍💨"
+
+    func loadImage() {
+            guard let inputImage = selectedImage else { return }
+            profileImage = inputImage
+        }
+    func errorCheck() -> String? {
+        if email.trimmingCharacters(in: .whitespaces).isEmpty ||
+            password.trimmingCharacters(in: .whitespaces).isEmpty ||
+            repeatPassword.trimmingCharacters(in: .whitespaces).isEmpty ||
+            username.trimmingCharacters(in: .whitespaces).isEmpty ||
+            imageData.isEmpty {
+            return "Please Fill in all fields and provide a photo"
+        }
+        return nil
+    }
+    func signUp() {
+        if password != repeatPassword {
+            self.error = "Wrong Passwords"
+            self.isShowAlert = true
+            return
+        }
+        if let error = errorCheck() {
+            self.error = error
+            self.isShowAlert = true
+            return
+        }
+        
+        AuthService.signUp(username: username, email: email, password: password, imageData: imageData, onSuccess: {
+            user in
+            self.clear()
+        }) {
+            errorMessage in
+            print("Error \(errorMessage)")
+            self.error = errorMessage
+            self.isShowAlert = true
+        }
+    }
     
-    
+    func signIn() {
+        if let error = errorCheck() {
+            self.error = error
+            self.isShowAlert = true
+            return
+        }
+    }
+
+    func clear(){
+        self.email = ""
+        self.password = ""
+        self.repeatPassword = ""
+        self.username = ""
+//        self.profileImage = isemptyView
+    }
+
     @EnvironmentObject var launchScreenManager: LaunchScreenManager
     var body: some View {
         
-        Group {
-    
-            // no user logged in
-            if viewModel.userSession == nil {
-                loginInterfaceView
-            } else {
-                MainTabView()
-            }
-            
-        }
+//        Group {
+//
+//            // no user logged in
+//            if viewModel.userSession == nil {
+//                loginInterfaceView
+//            } else {
+//                MainTabView()
+//            }
+//
+//        }
+//
         
+            loginInterfaceView
+//                .fullScreenCover(isPresented: $showPhotoUploadingView) {
+//                    ProfilePhotoSelectorView()
+//        }
     }
 }
+
+
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
         LoginView()
-            .environmentObject(AuthModel())
+//            .environmentObject(AuthModel())
     }
 }
 
@@ -51,7 +117,7 @@ extension LoginView {
         VStack {
 
             VStack(alignment: isAuth ? .leading : .trailing) {
-                HStack { Spacer() }
+                HStack {Spacer()}
                 
                 Text(isAuth ? "Hi." : "Welcome")
                     .font(.largeTitle)
@@ -62,7 +128,6 @@ extension LoginView {
                     .font(.largeTitle)
                     .bold()
                     .animation(Animation.easeInOut(duration: 0.6))
-                
 
 //                Image("NameLogo")
 //                    .resizable()
@@ -71,31 +136,56 @@ extension LoginView {
 //                    .padding()
 //
             }
-            .frame(height: 260)
+            .frame(height: 240)
             .padding()
             .background(Color("LaunchScreenBackground"))
             .foregroundColor(.white)
             .clipShape(isAuth ? RoundedShape(corners: [.bottomRight]) : RoundedShape(corners: .bottomLeft))
             .shadow(color: .gray.opacity(0.5), radius: 10, x: 15, y: 15)
             
-            VStack(spacing: 40){
+            VStack(spacing: 36){
+                
+                if isAuth == false {
+                    if profileImage != nil {
+                        profileImage!.resizable()
+                            .clipShape(Circle())
+                            .frame(width: 100, height: 100)
+                            .onTapGesture {
+                                self.showActionSheet = true
+                            }
+                    } else {
+                        Image(systemName: "person.circle.fill").resizable()
+                            .clipShape(Circle())
+                            .frame(width: 100, height: 100)
+                            .onTapGesture {
+                                self.showActionSheet = true
+                            }
+                    }
+                }
+
                 
                 CustomInputField(imageName: "envelope",
                                  placeholderText: "Email",
                                  SecureFieldisOff: true,
-                                 text: $Email)
+                                 text: $email)
                 
                 CustomInputField(imageName: "lock",
                                  placeholderText: "Password",
                                  SecureFieldisOff: false,
-                                 text: $Password)
+                                 text: $password)
           
                 
                 if isAuth == false {
                     CustomInputField(imageName: "lock",
                                      placeholderText: "Repeat Password",
                                      SecureFieldisOff: false,
-                                     text: $RepeatPassword)
+                                     text: $repeatPassword)
+                }
+                if isAuth == false {
+                    CustomInputField(imageName: "person",
+                                     placeholderText: "Username",
+                                     SecureFieldisOff: true,
+                                     text: $username)
                 }
  
             }
@@ -120,57 +210,8 @@ extension LoginView {
             }
             
             HStack{
-                Button {
-                    if isAuth {
-                        print("Authorization")
-                        viewModel.LoginUser(email: self.Email,
-                                                   password: self.Password) { result in
-                            switch result {
-                            case .success(let user):
-                                isHomeScreenView.toggle()
-                            case .failure(let error):
-                                alertMessage = error.localizedDescription
-                                isShowAlert.toggle()
-                            }
-                        }
-                        
-                        
-                    } else {
-                        print("Registration")
-                        
-                        guard Password == RepeatPassword else {
-                            self.alertMessage = "Look Password Again"
-                            self.isShowAlert.toggle()
-                            return
-                        }
-                        
-                        
-                        
-                        viewModel.Register(email: self.Email,
-                                                  password: self.Password) { result in
-                            switch result {
-                                
-                            case .success(let user):
-                                
-                                alertMessage = "You registered with \(user.email! )"
-                                self.isShowAlert.toggle()
-                                self.Email = ""
-                                self.Password = ""
-                                self.RepeatPassword = ""
-                                self.isAuth.toggle()
-                                self.viewModel.didAuthenticateUser.toggle()
-                                
-                            case .failure(let error):
-                                alertMessage = "Registration Error \(error.localizedDescription)!"
-                                self.isShowAlert.toggle()
-                            }
-                        }
-                        
-                        
-                        
-                       
-                    }
-                } label: {
+
+                Button(action: isAuth ? signIn : signUp){
                     Text(isAuth ? "Sign In" : "Sign up")
                         .font(.headline)
                         .bold()
@@ -179,9 +220,28 @@ extension LoginView {
                         .background(Color("LaunchScreenBackground"))
                         .clipShape(Capsule())
                         .padding()
+                    
+                }.alert(isPresented: $isShowAlert) {
+                    Alert(title: Text(alertMessage), message: Text(error), dismissButton: .default(Text("OK")))
                 }
+//                Button {
+//                    if isAuth {
+//                        print("Authorization")
+//                    } else {
+//                        print("Registration")
+//                        signUp()
+//                    }
+//                }label: {
+//                    Text(isAuth ? "Sign In" : "Sign up")
+//                        .font(.headline)
+//                        .bold()
+//                        .foregroundColor(.white)
+//                        .frame(width: 340, height: 60)
+//                        .background(Color("LaunchScreenBackground"))
+//                        .clipShape(Capsule())
+//                        .padding()
+//                }
                 .shadow(color: .gray.opacity(0.5), radius: 10, x: 10, y: 10)
-
             }
             
             Spacer()
@@ -194,29 +254,36 @@ extension LoginView {
                     .foregroundColor(Color("LaunchScreenBackground"))
             })
             .padding(.bottom, 32)
-            .alert(alertMessage,
-                   isPresented: $isShowAlert) {
-                Button {  } label: {
-                    Text("OK")
-                }
-
-            }
         }
         .ignoresSafeArea()
-    //        .onAppear {
-    //            
-    //            DispatchQueue
-    //                .main
-    //                .asyncAfter(deadline: .now() + 2) {
-    //                    launchScreenManager.dismiss()
-    //                }
-    //        }
+        .sheet(isPresented: $showPhotoPicker, onDismiss: loadImage){
+            ImagePicker(selectedImage: self.$profileImage, imageData: self.$imageData, showPhotoPicker: $showPhotoPicker)
+        }.actionSheet(isPresented: $showActionSheet){
+            ActionSheet(title: Text("Choose"), buttons: [
+                .default(Text("Choose a Photo")){
+                    self.sourceType = .photoLibrary
+                    self.showPhotoPicker = true
+                },
+                .default(Text("Take a Photo")){
+                    self.sourceType = .camera
+                    self.showPhotoPicker = true
+                }, .cancel()
+                ])
+        }
+//            .onAppear {
+//
+//                DispatchQueue
+//                    .main
+//                    .asyncAfter(deadline: .now() + 2) {
+//                        launchScreenManager.dismiss()
+//                    }
+//            }
         .animation(Animation.easeInOut(duration: 0.6), value: isAuth)
         .fullScreenCover(isPresented: $isHomeScreenView) {
             MainTabView()
         }
-        .fullScreenCover(isPresented: $viewModel.didAuthenticateUser) {
-            ProfilePhotoSelectorView()
-        }
+//        .fullScreenCover(isPresented: $viewModel.didAuthenticateUser) {
+//            ProfilePhotoSelectorView()
+//        }
     }
 }

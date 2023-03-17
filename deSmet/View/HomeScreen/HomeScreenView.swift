@@ -7,7 +7,7 @@
 
 import SwiftUI
 struct HomeScreenView: View {
-    @EnvironmentObject var viewModel: AuthModel
+//    @EnvironmentObject var viewModel: AuthModel
         //var InfintySpace: VideoMetadata
     @AppStorage("selectedTab") var selectedTab: Tab = .home
         
@@ -16,7 +16,7 @@ struct HomeScreenView: View {
             VStack {
                 Text("hello Home screen")
                 Button {
-                    AuthModel().signOut()
+//                    AuthModel().signOut()
                 } label: {
                     Text("Log out")
                 }
