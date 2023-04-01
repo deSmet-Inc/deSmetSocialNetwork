@@ -21,7 +21,7 @@ struct deSmetApp: App {
     var body: some Scene {
         WindowGroup {
             ZStack {
-                    LoginView()
+              LoginView().environmentObject(SessionStore())
 //                        .environmentObject(viewModel)
 //
 //                if  launchScreenManager.state != .completed {

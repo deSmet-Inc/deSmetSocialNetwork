@@ -27,6 +27,19 @@ struct StrokeStyle: ViewModifier {
     }
 }
 
+struct ButtonModifier: ViewModifier {
+  func body(content: Content) -> some View {
+    content
+      .frame(minWidth: 0, maxWidth: .infinity)
+      .frame(height: 20)
+      .padding()
+      .foregroundColor(.white)
+      .font(.system(size: 14, weight: .bold))
+      .background(Color.black)
+      .cornerRadius(5.0)
+  }
+}
+
 extension View {
     func strokeStyle(cornerRadius: CGFloat = 30) -> some View {
         modifier(StrokeStyle(cornerRadius: cornerRadius))

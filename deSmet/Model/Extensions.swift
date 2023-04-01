@@ -1,9 +1,3 @@
-//
-//  Exstensions.swift
-//  deSmet
-//
-//  Created by Apple on 26/3/23.
-//
 
 import Foundation
 

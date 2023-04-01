@@ -8,9 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
-//    @State private var showSideBar = false
-    var body: some View {
+
+  @EnvironmentObject var session: SessionStore
+  
+  func listen() {
+    session.listen()
+  }
+  
+  var body: some View {
         ZStack(alignment: .topLeading) {
+          if session.session != nil {
             MainTabView()
                 
             
@@ -18,7 +25,11 @@ struct ContentView: View {
                 .frame(width: 300)
 //                .offset(x: showSideBar ? 0 : 300, y: 0)
 //                .background(showSideBar ? Color.white : Color.clear)
+          } else {
+            LoginView()
+          }
         }
+    
         .navigationTitle("Profile")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
@@ -32,6 +43,7 @@ struct ContentView: View {
 
             }
         }
+        .onAppear(perform: listen)
     }
 }
 
