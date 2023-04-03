@@ -11,37 +11,20 @@ import FirebaseAuth
 
 @main
 struct deSmetApp: App {
-    
-    @StateObject var launchScreenManager = LaunchScreenManager()
-//    @StateObject var viewModel = AuthModel()
-    init() {
-        FirebaseApp.configure()
-    }
+  
+  @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     var body: some Scene {
         WindowGroup {
-            ZStack {
-              LoginView().environmentObject(SessionStore())
-//                        .environmentObject(viewModel)
-//
-//                if  launchScreenManager.state != .completed {
-//                    LaunchScreenView()
-//                }
-            }
-//            .environmentObject(launchScreenManager)
+          ContentView().environmentObject(SessionStore())
         }
     }
-    
-//    class Appdelegate: NSObject, UIApplicationDelegate {
-//
-//        func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOption:
-//                         [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-//
-//            FirebaseApp.configure()
-//            print("OK")
-//
-//            return true
-//        }
-//    }
-//
+}
+
+class AppDelegate: NSObject, UIApplicationDelegate {
+  func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil ) -> Bool {
+    print("Firebase...")
+    FirebaseApp.configure()
+    return true
+  }
 }

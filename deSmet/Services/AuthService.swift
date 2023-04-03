@@ -54,7 +54,7 @@ class AuthService {
       
       firestoreUserId.getDocument { (document, error) in
         if let dict = document?.data() {
-          guard let decodedUser = try? User.init(fromDictionary: self) else { return }
+          guard let decodedUser = try? User.init(fromDictionary: dict) else { return }
           onSucces(decodedUser)
         }
       }
