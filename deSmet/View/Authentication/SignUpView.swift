@@ -63,56 +63,76 @@ struct SignUpView: View {
   }
   
   var body: some View {
-    VStack {
-      VStack(spacing: 15) {
-        Image(systemName: "camera").font(.system(size: 60, weight: .black, design: .monospaced))
+    VStack(alignment: .leading) {
+      
+      VStack(alignment: .leading) {
         
-        VStack(alignment: .leading) {
-          Text("Welcome Back").font(.system(size: 32, weight: .heavy))
-          Text("Sign up").font(.system(size: 16, weight: .medium))
-          
-          VStack {
-            Group {
-              if profileImage != nil {
-                profileImage!.resizable()
-                  .clipShape(Circle())
-                  .frame(width: 100, height: 100)
-                  .padding(.top, 20)
-                  .onTapGesture {
-                    self.showingActionSheet = true
-                  }
-              } else {
-                Image(systemName: "person.fill")
-                  .resizable()
-                    .clipShape(Circle())
-                    .frame(width: 100, height: 100)
-                    .padding(.top, 20)
-                    .onTapGesture {
-                      self.showingActionSheet = true
-                    }
-              }
-            }
-          }
-          
-          Group {
-            CustomInputField(imageName: "person.fill", placeholderText: "Username", text: $username)
-            
-            CustomInputField(imageName: "envelope.fill", placeholderText: "E-mail", text: $email)
-            
-            CustomInputField(imageName: "lock.fill", placeholderText: "Password", SecureFieldisOff: false, text: $password)
-          }
-          
-          Button(action: signUp ) {
-            Text("Sign up").font(.title).modifier(ButtonModifier())
-          }.alert(isPresented: $showingAlert) {
-            Alert(title: Text(alertTitle), message: Text(error), dismissButton: .default(Text("OK")))
-          }
-          
-        }
-        
+        Text("Create")
+          .font(.largeTitle)
+          .bold()
+        Text("An new account!")
+          .font(.largeTitle)
+          .bold()
       }
       .padding()
-    }.sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
+      .frame(width: 320, height: 240)
+      .background(Color("LaunchScreenBackground"))
+      .foregroundColor(.white)
+      .clipShape(RoundedShape(corners: [.bottomRight]))
+      .shadow(color: .gray.opacity(0.5), radius: 10, x: 15, y: 15)
+      
+      Spacer()
+      
+      VStack(spacing: 40){
+        Group {
+          if profileImage != nil {
+            profileImage!
+              .resizable()
+              .clipShape(Circle())
+              .frame(width: 130, height: 130)
+              .padding(.top, 20)
+              .onTapGesture {
+                self.showingActionSheet = true
+              }
+            
+          } else {
+            Image(systemName: "person.circle")
+              .resizable()
+              .clipShape(Circle())
+              .frame(width: 130, height: 130)
+              .padding(.top, 20)
+              .shadow(color: .gray.opacity(0.5), radius: 10, x: 15, y: 15)
+              .onTapGesture {
+                self.showingActionSheet = true
+              }
+            Text("Pick a photo")
+              .padding(.top, -20)
+          }
+        }
+        
+        
+        Group {
+          CustomInputField(imageName: "person.fill", placeholderText: "Username", text: $username)
+          
+          CustomInputField(imageName: "envelope.fill", placeholderText: "E-mail", text: $email)
+          
+          CustomInputField(imageName: "lock.fill", placeholderText: "Password", SecureFieldisOff: false, text: $password)
+        }
+        
+        Button(action: signUp ) {
+          Text("Sign up").font(.title).bold().modifier(ButtonModifier())
+        }.alert(isPresented: $showingAlert) {
+          Alert(title: Text(alertTitle), message: Text(error), dismissButton: .default(Text("OK")))
+        }
+      }
+      .padding(.horizontal, 32)
+      .padding(.top,45)
+      
+      Spacer()
+
+    }
+    .ignoresSafeArea()
+    .sheet(isPresented: $showingImagePicker, onDismiss: loadImage) {
       ImagePicker(selectedImage: self.$pickedImage, imageData: self.$imageData, showPhotoPicker: self.$showingImagePicker)
     }.actionSheet(isPresented: self.$showingActionSheet) {
       ActionSheet(title: Text(""), buttons: [

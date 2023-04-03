@@ -48,35 +48,56 @@ struct LoginView: View {
   
   var body: some View {
     NavigationStack {
-      VStack(spacing: 15) {
-        Image(systemName: "camera").font(.system(size: 60, weight: .black, design: .monospaced))
+      VStack(alignment: .trailing) {
         
-        VStack(alignment: .leading) {
-          Text("Welcome Back").font(.system(size: 32, weight: .heavy))
-          Text("Sign in").font(.system(size: 16, weight: .medium))
+        VStack(alignment: .trailing) {
+          
+          Text("Welcome")
+            .font(.largeTitle)
+            .bold()
+          Text("To the future!")
+            .font(.largeTitle)
+            .bold()
+        }
+        .padding()
+        .frame(width: 320, height: 240)
+        .background(Color("LaunchScreenBackground"))
+        .foregroundColor(.white)
+        .clipShape(RoundedShape(corners: [.bottomLeft]))
+        .shadow(color: .gray.opacity(0.5), radius: 10, x: 15, y: 15)
+        
+        Spacer()
+        
+      
+        VStack(spacing: 40){
           
           CustomInputField(imageName: "envelope.fill", placeholderText: "E-mail", text: $email)
-          
-          CustomInputField(imageName: "lock.fill", placeholderText: "E-mail", SecureFieldisOff: false, text: $password)
-          
+
+          CustomInputField(imageName: "lock.fill", placeholderText: "Password", SecureFieldisOff: false, text: $password)
+
           Button(action: signIn ) {
-            Text("Sign in").font(.title).modifier(ButtonModifier())
+            Text("Sign in").font(.title).bold().modifier(ButtonModifier())
           }.alert(isPresented: $showingAlert) {
             Alert(title: Text(alertTitle), message: Text(error), dismissButton: .default(Text("OK")))
           }
-          
 
-        }
-        
-        HStack {
-          Text("Don't have an account?")
-          NavigationLink(destination: SignUpView()) {
-            Text("Create an Account")
-              .bold()
+          HStack {
+            Text("Don't have an account?")
+            NavigationLink(destination: SignUpView()) {
+              Text("Create")
+                .bold()
+            }
           }
+          
         }
+        .padding(.horizontal, 32)
+        .padding(.top,45)
+        
+        
+        Spacer()
+        
       }
-      .padding()
+      .ignoresSafeArea()
     }
   }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProfileComp: View {
     @Environment(\.colorScheme) var colorScheme
+    @EnvironmentObject var session: SessionStore
     var safeArea: EdgeInsets
     var size: CGSize
     var body: some View {
@@ -118,7 +119,7 @@ struct ProfileComp: View {
     
     @ViewBuilder
     func ProfileContent()-> some View{
-        VStack{
+        VStack {
             ForEach(1...10, id: \.self){ _ in
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
                     .fill(Color("LaunchScreenBackground").gradient)
@@ -137,18 +138,21 @@ struct ProfileComp: View {
             let titleProgress = minY / height
             
             HStack(spacing: 15) {
-                Button {
-                    
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .font(.title3)
-                        .foregroundColor(colorScheme == .dark ? .white : .black)
-                }
+//                Button {
+//                  
+//                } label: {
+//                    Image(systemName: "chevron.left")
+//                        .font(.title3)
+//                        .foregroundColor(colorScheme == .dark ? .white : .black)
+//                }
                 
                 Spacer(minLength: 0)
                 
-                Button {
-                    
+                Menu {
+                  Button(role: .destructive, action: session.logout)  {
+                      Text("Выход")
+                      Image(systemName: "rectangle.portrait.and.arrow.forward")
+                  }
                 } label: {
                     Image(systemName: "ellipsis")
                         .font(.title3)
