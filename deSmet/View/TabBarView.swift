@@ -70,7 +70,7 @@ struct TabBar: View {
             HStack {
                 if selectedTab == .Profile { Spacer() }
                 if selectedTab == .explore { Spacer() }
-                if selectedTab == .AR {  }
+                if selectedTab == .uploadPost {  }
                 if selectedTab == .Messenger {
                     Spacer()
                     Spacer()
@@ -102,7 +102,7 @@ struct TabBar: View {
                     Spacer()
 
                 }
-                if selectedTab == .AR {
+                if selectedTab == .uploadPost {
                     
                 }
                 if selectedTab == .Messenger {

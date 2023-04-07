@@ -23,8 +23,8 @@ struct MainTabView: View {
                     ExploreView()
                 case .explore:
                     ExploreView()
-                case .AR:
-                    ExploreView()
+                case .uploadPost:
+                    UploadPostView()
                 case .Messenger:
                     MessangerView()
                 case .Profile:
