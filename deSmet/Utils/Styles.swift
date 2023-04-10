@@ -40,24 +40,7 @@ struct ButtonModifier: ViewModifier {
   }
 }
 
-extension View {
-    func strokeStyle(cornerRadius: CGFloat = 30) -> some View {
-        modifier(StrokeStyle(cornerRadius: cornerRadius))
-    }
-}
 
-
-
-
-
-// Extension for adding rounded corners to specific corners
-extension View {
-    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
-        clipShape(RoundedCorner(radius: radius, corners: corners) )
-    }
-}
-
-// Custom RoundedCorner shape used for cornerRadius extension above
 struct RoundedCorner: Shape {
     var radius: CGFloat = .infinity
     var corners: UIRectCorner = .allCorners
@@ -65,5 +48,57 @@ struct RoundedCorner: Shape {
     func path(in rect: CGRect) -> Path {
         let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
         return Path(path.cgPath)
+    }
+}
+
+struct RoundedShape: Shape {
+  var corners: UIRectCorner
+  
+  func path(in rect: CGRect) -> Path {
+    let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: 80, height: 80))
+    
+    return Path(path.cgPath)
+  }
+}
+
+struct CustomCorners: Shape {
+    
+    var corners: UIRectCorner
+    var radius: CGFloat
+    
+    func path (in rect: CGRect) -> Path {
+        
+        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        
+        return Path(path.cgPath)
+    }
+}
+
+struct CustomInputField: View {
+    let imageName: String
+    let placeholderText: String
+    @State  var SecureFieldisOff: Bool = true
+    @Binding var text: String
+    
+    
+    var body: some View {
+        VStack {
+            HStack {
+                    Image(systemName: imageName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 20, height: 20)
+                    .foregroundColor(Color(.darkGray))
+                
+                if SecureFieldisOff {
+                    TextField(placeholderText, text: $text)
+                } else {
+                    SecureField(placeholderText, text: $text)
+                }
+            }
+            
+            Divider()
+                .background(Color(.darkGray))
+        }
     }
 }

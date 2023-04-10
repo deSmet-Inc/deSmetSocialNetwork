@@ -1,5 +1,18 @@
 
 import Foundation
+import SwiftUI
+
+extension View {
+    func strokeStyle(cornerRadius: CGFloat = 30) -> some View {
+        modifier(StrokeStyle(cornerRadius: cornerRadius))
+    }
+}
+
+extension View {
+    func cornerRadius(_ radius: CGFloat, corners: UIRectCorner) -> some View {
+        clipShape(RoundedCorner(radius: radius, corners: corners) )
+    }
+}
 
 extension Encodable {
     func asDictinary() throws -> [String: Any] {
@@ -35,3 +48,4 @@ extension String{
         return stringArray
     }
 }
+
