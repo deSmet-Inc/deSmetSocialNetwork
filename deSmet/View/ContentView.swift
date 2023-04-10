@@ -9,24 +9,22 @@ import SwiftUI
 
 struct ContentView: View {
   
-//  @EnvironmentObject var session: SessionStore
+  @EnvironmentObject var session: SessionStore
   
-//  func listen() {
-//    session.listen()
-//  }
+  func listen() {
+    session.listen()
+  }
   
   var body: some View {
     Group {
-      MainTabView()
+      if (session.session != nil ) {
+        MainTabView()
 
-//      if (session.session != nil ) {
-//        MainTabView()
-//
-//      } else {
-//        LoginView()
-//      }
+      } else {
+        LoginView()
+      }
     }
-    //.onAppear(perform: listen)
+    .onAppear(perform: listen)
   }
   
   struct ContentView_Previews: PreviewProvider {

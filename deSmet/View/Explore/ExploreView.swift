@@ -6,14 +6,18 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct ExploreView: View {
-    // header animation
+  
+    @EnvironmentObject var session: SessionStore
+    @State var profileService = ProfileService()
+  
     @State var offsetY: CGFloat = 0
     @State var showSearchBar: Bool = false
     
+    
     let themeColor = Color("LaunchScreenBackground")
-//    let themeColor = Color.red
     var body: some View {
         GeometryReader{proxy in
             let safeAreaTop = proxy.safeAreaInsets.top
@@ -24,15 +28,13 @@ struct ExploreView: View {
                         .zIndex(1)
                     
                     //Scroll content
-                    VStack{
-                        ForEach(1...10, id: \.self){ _ in
-                            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                .fill(themeColor.gradient)
-                                .frame(height: 220)
-                                
-                        }
-                    }.padding(15)
-                        .zIndex(0)
+                    VStack {
+                      ForEach(self.profileService.posts, id: \.postID) { post in
+                        PostCardImage(post: post)
+                        PostCard(post: post)
+                      }
+                    }
+                    .zIndex(0)
                 }
                 .offset(coordinateSpace: .named("SCROLL")){offset in
                     offsetY = offset
@@ -45,6 +47,9 @@ struct ExploreView: View {
             }
             .coordinateSpace(name: "SCROLL")
             .edgesIgnoringSafeArea(.top)
+        }
+        .onAppear {
+          self.profileService.loadUserPosts(userID: Auth.auth().currentUser!.uid)
         }
     }
     
